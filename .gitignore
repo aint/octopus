@@ -1,0 +1,22 @@
+### Python ###
+
+# VirtualEnv
+[Bb]in
+[Ii]nclude
+[Ll]ib
+[Ll]ib64
+[Ll]ocal
+[Ss]cripts
+pyvenv.cfg
+pip-selfcheck.json
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+### VS Code ###
+.settings/
+.vscode/
+tsconfig.json
+jsconfig.json
