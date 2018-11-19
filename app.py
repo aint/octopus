@@ -19,7 +19,7 @@ def parse_request():
     dependencies = content["dependencies"]
     print(dependencies)
 
-    graph = Digraph('G', filename = name + '.gv', format = 'png')
+    graph = Digraph('G', filename = f"{name}.gv", format = 'png')
 
     for entry in dependencies:
         print(entry)
