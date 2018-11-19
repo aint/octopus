@@ -23,9 +23,15 @@ def parse_request():
 
     for entry in dependencies:
         print(entry)
-        for e in entry:
-            print("val: " + e)
-            graph.edge(name, e)
+        for k, v in entry.items():
+            print("key: " + k)
+            print("val: " + v)
+            if v == "database":
+                graph.attr('node', shape='box')
+                print("database")
+            else:
+                graph.attr('node', shape='ellipse')
+            graph.edge(name, k)
 
     graph.render()
 
