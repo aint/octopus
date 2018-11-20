@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from flask import Flask, request
+from flask import Flask, request, send_file
 from graphviz import Digraph
 
 app = Flask(__name__)
@@ -35,7 +35,7 @@ def parse_request():
 
     graph.render()
 
-    return 'JSON posted\n' + graph.source
+    return send_file(f"{name}.gv.png", mimetype='image/gif')
 
 if __name__ == '__main__':
     app.run(debug=True, host='127.0.0.1', port=5000)
