@@ -34,14 +34,9 @@ def parse_request():
         for k, v in entry.items():
             print("key: " + k)
             print("val: " + v)
-            node_shape = ""
-            if v == "database":
-                node_shape = 'box'
-                print("database")
-            else:
-                node_shape = 'ellipse'
+            shape = node_shape(v)
 
-            node_svc = pydot.Node(k, style = "filled", fillcolor = "green", shape = node_shape)
+            node_svc = pydot.Node(k, style = "filled", fillcolor = "green", shape = shape)
             graph.add_node(node_svc)
             graph.add_edge(pydot.Edge(node_app, node_svc))
 
@@ -50,7 +45,8 @@ def parse_request():
 
     return send_file(f"{name}.png", mimetype='image/gif')
 
-    return send_file(f"{name}.gv.png", mimetype='image/gif')
+def node_shape(service_type):
+    return "box" if service_type == "database" else "ellipse"
 
 if __name__ == '__main__':
     app.run(debug=True, host='127.0.0.1', port=5000)
