@@ -3,6 +3,9 @@
 from flask import Flask, request, send_file
 import pydot
 
+ELLIPSE_SHAPE = "ellipse"
+BOX_SHAPE = "box"
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -46,7 +49,7 @@ def parse_request():
     return send_file(f"{name}.png", mimetype='image/gif')
 
 def node_shape(service_type):
-    return "box" if service_type == "database" else "ellipse"
+    return BOX_SHAPE if service_type == "database" else ELLIPSE_SHAPE
 
 if __name__ == '__main__':
     app.run(debug=True, host='127.0.0.1', port=5000)
