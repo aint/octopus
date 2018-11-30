@@ -30,8 +30,15 @@ def parse_request():
     print(type(graphList))
     print(type(graph))
 
-    node_app = pydot.Node(name, style = "filled", fillcolor = "#0000ff")
-    graph.add_node(node_app)
+    node_names = []
+    for node in graph.get_nodes():
+        node_names.append(node.get_name().strip('\"'))
+
+    print(node_names)
+
+    if name not in node_names:
+        node_app = pydot.Node(name, style = "filled", fillcolor = "#0000ff")
+        graph.add_node(node_app)
     for entry in dependencies:
         print(entry)
         for k, v in entry.items():
@@ -39,9 +46,13 @@ def parse_request():
             print("val: " + v)
             shape = node_shape(v)
 
-            node_svc = pydot.Node(k, style = "filled", fillcolor = "green", shape = shape)
-            graph.add_node(node_svc)
-            graph.add_edge(pydot.Edge(node_app, node_svc))
+            if k not in node_names:
+                print(f"--{k} not in nodes")
+                node_svc = pydot.Node(k, style = "filled", fillcolor = "green", shape = shape)
+                graph.add_node(node_svc)
+                graph.add_edge(pydot.Edge(node_app, node_svc))
+            else:
+                print(f"++{k} in nodes")
 
     graph.write_png(f"{name}.png")
     graph.write(f"{name}.gv")
