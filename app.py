@@ -22,12 +22,7 @@ def parse_request():
     dependencies = content["dependencies"]
     print(dependencies)
 
-    graph = Digraph('G', filename = f"{name}.gv", format = 'png')
-
-    graphList = pydot.graph_from_dot_file(f"{name}.gv", encoding = 'utf-8')
-    graph = graphList[0]
-    graph.set_strict(True)
-    print(type(graphList))
+    graph = parse_graph(name)
     print(type(graph))
 
     node_names = []
@@ -61,6 +56,15 @@ def parse_request():
 
 def node_shape(service_type):
     return BOX_SHAPE if service_type == "database" else ELLIPSE_SHAPE
+
+def parse_graph(name) -> pydot.Dot:
+    graphList = pydot.graph_from_dot_file(f"{name}.gv", encoding = 'utf-8')
+    print(type(graphList))
+    graph = graphList[0]
+    graph.set_strict(True)
+    return graph
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='127.0.0.1', port=5000)
