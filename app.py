@@ -34,6 +34,13 @@ def parse_request():
     if name not in node_names:
         node_app = pydot.Node(name, style = "filled", fillcolor = "#0000ff")
         graph.add_node(node_app)
+    else:
+        for node in graph.get_nodes():
+            print(node.get_name().strip('\"'))
+            if node.get_name().strip('\"') == name:
+                node_app = node
+                break
+
     for entry in dependencies:
         print(entry)
         for k, v in entry.items():
