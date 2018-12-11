@@ -68,7 +68,11 @@ def parse_request():
     return send_file("graph.png", mimetype='image/gif')
 
 def node_shape(service_type):
-    return BOX_SHAPE if service_type == "database" else ELLIPSE_SHAPE
+    return {
+        "service": ELLIPSE_SHAPE,
+        "database": BOX_SHAPE,
+        "lambda": DIAMOND_SHAPE,
+    }[service_type]
 
 def parse_graph(name) -> pydot.Dot:
     graphList = pydot.graph_from_dot_file(f"{name}.gv", encoding = 'utf-8')
