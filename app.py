@@ -69,10 +69,10 @@ def parse_request():
 
 def node_shape(service_type):
     return {
-        "service": ELLIPSE_SHAPE,
-        "database": BOX_SHAPE,
-        "lambda": DIAMOND_SHAPE,
-    }[service_type]
+        "services": ELLIPSE_SHAPE,
+        "databases": BOX_SHAPE,
+        "lambdas": OCTAGON_SHAPE,
+    }[service_type.lower()]
 
 def parse_graph(name) -> pydot.Dot:
     graphList = pydot.graph_from_dot_file(f"{name}.gv", encoding = 'utf-8')
