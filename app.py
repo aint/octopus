@@ -5,6 +5,7 @@ import pydot
 
 ELLIPSE_SHAPE = "ellipse"
 BOX_SHAPE = "box"
+OCTAGON_SHAPE = "octagon"
 
 app = Flask(__name__)
 
