@@ -1,7 +1,7 @@
 <p align="center">
 	<img src="https://i.imgur.com/IfzW8Ce.png" alt="Octopus" width="500">
 </p>
-<h2 align="center">Microservices Dependency Analysis Tool</h3>
+<h2 align="center">Microservice Architecture Visualization Tool </h3>
 
 <p align="center">
     <a href="https://github.com/aint/octopus/graphs/commit-activity"><img src="https://img.shields.io/maintenance/yes/2018.svg"></a>
@@ -17,7 +17,7 @@
 
 ---
 
-**Octopus** is an open-source microservices dependency analysis tool that is simple and easy to use.
+**Octopus** is an open-source microservice architecture tool for visualizing dependency graph. It's simple and easy to use.
 
 # Why
 
@@ -36,7 +36,7 @@ The microservice architecture has a lot of advantages but there are a lot disadv
 
 # Contributing
 
-# Code of Conduct:
+# Code of Conduct
 I don't care about your feelings.
 
 # Licence
