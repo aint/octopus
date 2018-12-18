@@ -5,4 +5,4 @@ python:
 install:
   - 'pip install pipenv'
   - 'pipenv sync'
-script: 'python app.py'
+script: 'python -m py_compile app.py'
