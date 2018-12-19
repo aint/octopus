@@ -20,8 +20,6 @@ def parse_request():
     print(content)
     name = content["serviceName"]
     print(name)
-    dependencies = content["dependencies"]["SERVICES"]
-    print(dependencies)
 
     graph = parse_graph(name)
     print(type(graph))
@@ -42,26 +40,30 @@ def parse_request():
                 node_app = node
                 break
 
-    for svc in dependencies:
-        print("svc: " + svc)
-        shape = node_shape("service")
+    for dep in content["dependencies"]:
+        dependencies = dep
+        print(dependencies)
+        for svc in content["dependencies"][dependencies]:
+            print("svc: " + svc)
+            shape = node_shape(dependencies)
+            print("shape: " + shape)
 
-        if svc not in node_names:
-            print(f"--{svc} not in nodes")
-            node_svc = pydot.Node(svc, style = "filled", fillcolor = "green", shape = shape)
-            graph.add_node(node_svc)
-        else:
-            print(f"++{svc} in nodes")
-            for node in graph.get_nodes():
-                print(node.get_name().strip('\"'))
-                if node.get_name().strip('\"') == svc:
-                    node_svc = node
-                    print(node_svc.get_sequence())
-                    break
-                    # pydot.Edge.get_destination()
-                    # pydot.Edge.get_source()
+            if svc not in node_names:
+                print(f"--{svc} not in nodes")
+                node_svc = pydot.Node(svc, style = "filled", fillcolor = "green", shape = shape)
+                graph.add_node(node_svc)
+            else:
+                print(f"++{svc} in nodes")
+                for node in graph.get_nodes():
+                    print(node.get_name().strip('\"'))
+                    if node.get_name().strip('\"') == svc:
+                        node_svc = node
+                        print(node_svc.get_sequence())
+                        break
+                        # pydot.Edge.get_destination()
+                        # pydot.Edge.get_source()
 
-        graph.add_edge(pydot.Edge(node_app, node_svc))
+            graph.add_edge(pydot.Edge(node_app, node_svc))
 
     graph.write_png("graph.png")
     graph.write("graph.gv")
