@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from flask import Flask, request, send_file
+from graphviz import parse_graph
 import pydot
 
 ELLIPSE_SHAPE = "ellipse"
@@ -21,7 +22,7 @@ def parse_request():
     name = content["serviceName"]
     print(name)
 
-    graph = parse_graph(name)
+    graph = parse_graph()
     print(type(graph))
 
     node_names = []
