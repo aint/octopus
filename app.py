@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from flask import Flask, request, send_file
-from graphviz import parse_graph
+from graphviz import parse_graph, create_node
 import pydot
 
 ELLIPSE_SHAPE = "ellipse"
@@ -51,7 +51,7 @@ def parse_request():
 
             if svc not in node_names:
                 print(f"--{svc} not in nodes")
-                node_svc = pydot.Node(svc, style = "filled", fillcolor = "green", shape = shape)
+                node_svc = create_node(svc, shape)
                 graph.add_node(node_svc)
             else:
                 print(f"++{svc} in nodes")

@@ -8,3 +8,6 @@ def parse_graph() -> pydot.Dot:
     graph = graphList[0]
     graph.set_strict(True) #TODO make it configurable
     return graph
+
+def create_node(name, shape) -> pydot.Node:
+    return pydot.Node(name, style = "filled", fillcolor = "green", shape = shape)
