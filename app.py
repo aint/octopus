@@ -78,13 +78,6 @@ def node_shape(service_type):
         "lambdas": OCTAGON_SHAPE,
     }[service_type.lower()]
 
-def parse_graph() -> pydot.Dot:
-    graphList = pydot.graph_from_dot_file("graph.gv", encoding = 'utf-8')
-    print(type(graphList))
-    graph = graphList[0]
-    graph.set_strict(True)
-    return graph
-
 
 
 if __name__ == '__main__':
