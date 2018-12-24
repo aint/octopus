@@ -9,5 +9,8 @@ def parse_graph() -> pydot.Dot:
     graph.set_strict(True) #TODO make it configurable
     return graph
 
-def create_node(name, shape) -> pydot.Node:
-    return pydot.Node(name, style = "filled", fillcolor = "green", shape = shape)
+def create_node(name, shape, label = None) -> pydot.Node:
+    if label == None:
+        return pydot.Node(name, style = "filled", fillcolor = "green", shape = shape)
+    else:
+        return pydot.Node(name, style = "filled", fillcolor = "green", shape = shape, label = label)
