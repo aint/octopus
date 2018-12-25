@@ -49,7 +49,8 @@ def parse_request():
         for svc in content["dependencies"][dependencies]:
             print("svc: " + svc)
             if record_enabled:
-                label = f"{{ {svc} | {dependencies} }}"
+                dep_type = dependency_type(dependencies)
+                label = f"{{ {svc} | {dep_type} }}"
                 shape = "record"
             else:
                 shape = node_shape(dependencies)
@@ -86,6 +87,12 @@ def node_shape(service_type):
     }[service_type.lower()]
 
 
+def dependency_type(type):
+    return {
+        "services": "svc",
+        "databases": "db",
+        "lambdas": "fn",
+    }[type.lower()]
 
 if __name__ == '__main__':
     app.run(debug=True, host='127.0.0.1', port=5000)
