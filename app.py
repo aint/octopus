@@ -41,17 +41,24 @@ def parse_request():
                 node_app = node
                 break
 
+    record_enabled = True
+
     for dep in content["dependencies"]:
         dependencies = dep
         print(dependencies)
         for svc in content["dependencies"][dependencies]:
             print("svc: " + svc)
-            shape = node_shape(dependencies)
+            if record_enabled:
+                label = f"{{ {svc} | {dependencies} }}"
+                shape = "record"
+            else:
+                shape = node_shape(dependencies)
+
             print("shape: " + shape)
 
             if svc not in node_names:
                 print(f"--{svc} not in nodes")
-                node_svc = create_node(svc, shape)
+                node_svc = create_node(svc, shape, label)
                 graph.add_node(node_svc)
             else:
                 print(f"++{svc} in nodes")
