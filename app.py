@@ -74,10 +74,10 @@ def parse_request():
 
             graph.add_edge(pydot.Edge(node_app, node_svc))
 
-    graph.write_png("graph.png")
+    graph.write(path="graph.svg", format="svg")
     graph.write("graph.gv")
 
-    return send_file("graph.png", mimetype='image/gif')
+    return send_file("graph.svg", mimetype='image/svg')
 
 def node_shape(service_type):
     return {
