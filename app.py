@@ -8,6 +8,11 @@ ELLIPSE_SHAPE = "ellipse"
 BOX_SHAPE = "box"
 OCTAGON_SHAPE = "octagon"
 
+record_table = """<<table border='0' cellspacing='0'>
+                    <tr><td port='port1' border='1' bgcolor='red'>{0}</td></tr>
+                    <tr><td port='port2' border='1' bgcolor='gray'>{1}</td></tr>
+                </table>>"""
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -50,8 +55,8 @@ def parse_request():
             print("svc: " + svc)
             if record_enabled:
                 dep_type = dependency_type(dependencies)
-                label = f"{{ {svc} | {dep_type} }}"
-                shape = "record"
+                label = record_table.format(svc, dep_type)
+                shape = "none"
             else:
                 shape = node_shape(dependencies)
 
