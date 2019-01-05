@@ -37,7 +37,10 @@ def parse_request():
     print(node_names)
 
     if name not in node_names:
-        node_app = pydot.Node(name, style = "filled", fillcolor = "#0000ff")
+        shape = "none"
+        dep_type = "svc"
+        label = record_table.format(name, dep_type)
+        node_app = create_node(name, shape, label)
         graph.add_node(node_app)
     else:
         for node in graph.get_nodes():
