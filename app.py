@@ -102,6 +102,7 @@ def dependency_type(type):
         "services": "svc",
         "databases": "db",
         "lambdas": "fn",
+        "third_party": "3rd party"
     }[type.lower()]
 
 if __name__ == '__main__':
