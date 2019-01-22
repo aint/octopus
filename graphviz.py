@@ -13,4 +13,4 @@ def create_node(name, shape, label = None) -> pydot.Node:
     if label == None:
         return pydot.Node(name, style = "filled", fillcolor = "green", shape = shape)
     else:
-        return pydot.Node(name, style = "filled", fillcolor = "green", shape = shape, label = label)
+        return pydot.Node(name, shape = shape, label = label)
