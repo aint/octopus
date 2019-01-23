@@ -49,6 +49,10 @@ def parse_request():
             print(node.get_name().strip('\"'))
             if node.get_name().strip('\"') == name:
                 node_app = node
+                dep_type = "svc"
+                metadata = content["serviceMetadata"]
+                label = record_table.format(name, dep_type, metadata)
+                node_app.set("label", label)
                 break
 
     record_enabled = True
