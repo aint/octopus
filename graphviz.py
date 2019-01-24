@@ -2,6 +2,12 @@
 
 import pydot
 
+record_table = """<<table border='0' cellspacing='0'>
+                    <tr><td port='port1' border='1' bgcolor='red'>{0}</td></tr>
+                    <tr><td port='port2' border='1' bgcolor='gray'>{1}</td></tr>
+                    <tr><td port='port2' border='1' bgcolor='gray'>{2}</td></tr>
+                </table>>"""
+
 def parse_graph() -> pydot.Dot:
     graphList = pydot.graph_from_dot_file("graph.gv", encoding = 'utf-8')
     print(type(graphList))
@@ -14,3 +20,8 @@ def create_node(name, shape, label = None) -> pydot.Node:
         return pydot.Node(name, style = "filled", fillcolor = "green", shape = shape)
     else:
         return pydot.Node(name, shape = shape, label = label)
+
+def create_record_node(name, dep_type, metadata) -> pydot.Node:
+    label = record_table.format(name, dep_type, metadata)
+
+    return pydot.Node(name, shape = "none", label = label)
