@@ -1,18 +1,12 @@
 #!/usr/bin/env python3
 
 from flask import Flask, request, send_file
-from graphviz import parse_graph, create_node
+from graphviz import parse_graph, create_node, create_record_node
 import pydot
 
 ELLIPSE_SHAPE = "ellipse"
 BOX_SHAPE = "box"
 OCTAGON_SHAPE = "octagon"
-
-record_table = """<<table border='0' cellspacing='0'>
-                    <tr><td port='port1' border='1' bgcolor='red'>{0}</td></tr>
-                    <tr><td port='port2' border='1' bgcolor='gray'>{1}</td></tr>
-                    <tr><td port='port2' border='1' bgcolor='gray'>{2}</td></tr>
-                </table>>"""
 
 app = Flask(__name__)
 
@@ -41,8 +35,7 @@ def parse_request():
         shape = "none"
         dep_type = "svc"
         metadata = content["serviceMetadata"]
-        label = record_table.format(name, dep_type, metadata)
-        node_app = create_node(name, shape, label)
+        node_app = create_record_node(name, dep_type, metadata)
         graph.add_node(node_app)
     else:
         for node in graph.get_nodes():
@@ -64,7 +57,6 @@ def parse_request():
             print("svc: " + svc)
             if record_enabled:
                 dep_type = dependency_type(dependencies)
-                label = record_table.format(svc, dep_type, "java spring")
                 shape = "none"
             else:
                 shape = node_shape(dependencies)
@@ -73,7 +65,7 @@ def parse_request():
 
             if svc not in node_names:
                 print(f"--{svc} not in nodes")
-                node_svc = create_node(svc, shape, label)
+                node_svc = create_record_node(svc, dep_type, "N/D")
                 graph.add_node(node_svc)
             else:
                 print(f"++{svc} in nodes")
