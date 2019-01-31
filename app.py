@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from flask import Flask, request, send_file
-from graphviz import parse_graph, create_node, create_record_node
+from graphviz import parse_graph, create_node, create_record_node, update_record_node
 import pydot
 
 ELLIPSE_SHAPE = "ellipse"
@@ -44,8 +44,7 @@ def parse_request():
                 node_app = node
                 dep_type = "svc"
                 metadata = content["serviceMetadata"]
-                label = record_table.format(name, dep_type, metadata)
-                node_app.set("label", label)
+                node_app = update_record_node(node, dep_type, metadata)
                 break
 
     record_enabled = True
