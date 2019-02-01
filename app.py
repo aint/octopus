@@ -16,20 +16,14 @@ def hello():
 
 @app.route('/consume', methods=['POST'])
 def parse_request():
-    print(request.is_json)
     content = request.get_json()
-    print(content)
     name = content["serviceName"]
-    print(name)
 
     graph = parse_graph()
-    print(type(graph))
 
     node_names = []
     for node in graph.get_nodes():
         node_names.append(node.get_name().strip('\"'))
-
-    print(node_names)
 
     if name not in node_names:
         shape = "none"
@@ -39,7 +33,6 @@ def parse_request():
         graph.add_node(node_app)
     else:
         for node in graph.get_nodes():
-            print(node.get_name().strip('\"'))
             if node.get_name().strip('\"') == name:
                 node_app = node
                 dep_type = "svc"
@@ -59,8 +52,6 @@ def parse_request():
                 shape = "none"
             else:
                 shape = node_shape(dependencies)
-
-            print("shape: " + shape)
 
             if svc not in node_names:
                 print(f"--{svc} not in nodes")
