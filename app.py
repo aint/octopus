@@ -16,8 +16,10 @@ def hello():
 
 @app.route('/consume', methods=['POST'])
 def parse_request():
-    content = request.get_json()
-    name = content["serviceName"]
+    json = request.get_json()
+    name = json["serviceName"]
+    metadata = json["serviceMetadata"]
+    dependencies = json["dependencies"]
 
     graph = parse_graph()
 
@@ -26,9 +28,7 @@ def parse_request():
         node_names.append(node.get_name().strip('\"'))
 
     if name not in node_names:
-        shape = "none"
         dep_type = "svc"
-        metadata = content["serviceMetadata"]
         node_app = create_record_node(name, dep_type, metadata)
         graph.add_node(node_app)
     else:
@@ -36,22 +36,19 @@ def parse_request():
             if node.get_name().strip('\"') == name:
                 node_app = node
                 dep_type = "svc"
-                metadata = content["serviceMetadata"]
                 node_app = update_record_node(node, dep_type, metadata)
                 break
 
     record_enabled = True
 
-    for dep in content["dependencies"]:
-        dependencies = dep
-        print(dependencies)
-        for svc in content["dependencies"][dependencies]:
+    for dep in dependencies:
+        for svc in dependencies[dep]:
             print("svc: " + svc)
             if record_enabled:
-                dep_type = dependency_type(dependencies)
+                dep_type = dependency_type(dep)
                 shape = "none"
             else:
-                shape = node_shape(dependencies)
+                shape = node_shape(dep)
 
             if svc not in node_names:
                 print(f"--{svc} not in nodes")
