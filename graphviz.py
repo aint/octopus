@@ -31,3 +31,10 @@ def update_record_node(node, dep_type, metadata) -> pydot.Node:
     node.set("label", label)
 
     return node
+
+def node_names_list(graph):
+    node_names = []
+    for node in graph.get_nodes():
+        node_names.append(node.get_name().strip('\"'))
+
+    return node_names

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from flask import Flask, request, send_file
-from graphviz import parse_graph, create_node, create_record_node, update_record_node
+from graphviz import parse_graph, create_node, create_record_node, update_record_node, node_names_list
 import pydot
 
 ELLIPSE_SHAPE = "ellipse"
@@ -22,10 +22,7 @@ def parse_request():
     dependencies = json["dependencies"]
 
     graph = parse_graph()
-
-    node_names = []
-    for node in graph.get_nodes():
-        node_names.append(node.get_name().strip('\"'))
+    node_names = node_names_list(graph)
 
     if name not in node_names:
         dep_type = "svc"
