@@ -29,7 +29,7 @@ def parse_request():
         print("DESTROY")
         if name in node_names:
             for e in graph.get_edges():
-                if e.get_source() == name:
+                if e.get_source() == name or e.get_destination() == name:
                     r = graph.del_edge(e.get_source(), e.get_destination())
                     print("DESTROY " + name + " :" + str(r))
             graph.del_node(name)
