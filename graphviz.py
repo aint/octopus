@@ -27,7 +27,7 @@ def create_record_node(name, dep_type, metadata) -> pydot.Node:
     return pydot.Node(name, shape = "none", label = label)
 
 def update_record_node(node, dep_type, metadata) -> pydot.Node:
-    label = record_table.format(node.get_name, dep_type, metadata)
+    label = record_table.format(node.get_name(), dep_type, metadata)
     node.set("label", label)
 
     return node
