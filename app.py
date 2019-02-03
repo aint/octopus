@@ -18,11 +18,27 @@ def hello():
 def parse_request():
     json = request.get_json()
     name = json["serviceName"]
+    event_type = json["eventType"]
     metadata = json["serviceMetadata"]
     dependencies = json["dependencies"]
 
     graph = parse_graph()
     node_names = node_names_list(graph)
+
+    if event_type == "DESTROY":
+        print("DESTROY")
+        if name in node_names:
+            for e in graph.get_edges():
+                if e.get_source() == name:
+                    r = graph.del_edge(e.get_source(), e.get_destination())
+                    print("DESTROY " + name + " :" + str(r))
+            graph.del_node(name)
+
+        graph.write(path="graph.svg", format="svg")
+        graph.write("graph.gv")
+
+        return send_file("graph.svg", mimetype='image/svg')
+
 
     if name not in node_names:
         dep_type = "svc"
