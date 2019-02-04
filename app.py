@@ -14,6 +14,12 @@ app = Flask(__name__)
 def hello():
     return 'Hello, World!'
 
+def find_node_by_name(name, graph):
+    for node in graph.get_nodes():
+        if node.get_name().strip('\"') == name:
+            return node
+    raise ValueError("Graph doesn't contain node with specified name", name)
+
 @app.route('/consume', methods=['POST'])
 def parse_request():
     json = request.get_json()
@@ -41,16 +47,11 @@ def parse_request():
 
 
     if name not in node_names:
-        dep_type = "svc"
-        node_app = create_record_node(name, dep_type, metadata)
+        node_app = create_record_node(name, "svc", metadata)
         graph.add_node(node_app)
     else:
-        for node in graph.get_nodes():
-            if node.get_name().strip('\"') == name:
-                node_app = node
-                dep_type = "svc"
-                node_app = update_record_node(node, dep_type, metadata)
-                break
+        node = find_node_by_name(name, graph)
+        node_app = update_record_node(node, "svc", metadata)
 
     record_enabled = True
 
