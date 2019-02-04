@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from typing import List
 import pydot
 
 record_table = """<<table border='0' cellspacing='0'>
@@ -31,6 +32,14 @@ def update_record_node(node, dep_type, metadata) -> pydot.Node:
     node.set("label", label)
 
     return node
+
+def find_edges(graph: pydot.Dot, source: str) -> List[pydot.Edge]:
+    edges = []
+    for e in graph.get_edges():
+        if e.get_source() == source:
+            edges.append(e)
+
+    return edges
 
 def node_names_list(graph):
     node_names = []
