@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from flask import Flask, request, send_file
-from graphviz import parse_graph, create_node, create_record_node, update_record_node, node_names_list
+from graphviz import parse_graph, create_node, create_record_node, update_record_node, node_names_list, find_edges
 import pydot
 
 ELLIPSE_SHAPE = "ellipse"
@@ -55,6 +55,10 @@ def parse_request():
 
     record_enabled = True
 
+    edges = []
+    for e in find_edges(graph, name):
+        edges.append(e.get_destination())
+
     deps = []
     for dep in dependencies:
         for svc in dependencies[dep]:
@@ -67,7 +71,9 @@ def parse_request():
                 graph.add_node(node_svc)
                 graph.add_edge(pydot.Edge(node_app, node_svc))
 
-            graph.add_edge(pydot.Edge(node_app, node_svc))
+    for e in find_edges(graph, name):
+        if e.get_destination() not in deps:
+            graph.del_edge(name, e.get_destination())
 
     graph.write(path="graph.svg", format="svg")
     graph.write("graph.gv")
