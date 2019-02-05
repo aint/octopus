@@ -55,29 +55,17 @@ def parse_request():
 
     record_enabled = True
 
+    deps = []
     for dep in dependencies:
         for svc in dependencies[dep]:
             print("svc: " + svc)
-            if record_enabled:
-                dep_type = dependency_type(dep)
-                shape = "none"
-            else:
-                shape = node_shape(dep)
+            deps.append(svc)
 
-            if svc not in node_names:
-                print(f"--{svc} not in nodes")
+            if svc not in edges:
+                dep_type = dependency_type(dep)
                 node_svc = create_record_node(svc, dep_type, "N/D")
                 graph.add_node(node_svc)
-            else:
-                print(f"++{svc} in nodes")
-                for node in graph.get_nodes():
-                    print(node.get_name().strip('\"'))
-                    if node.get_name().strip('\"') == svc:
-                        node_svc = node
-                        print(node_svc.get_sequence())
-                        break
-                        # pydot.Edge.get_destination()
-                        # pydot.Edge.get_source()
+                graph.add_edge(pydot.Edge(node_app, node_svc))
 
             graph.add_edge(pydot.Edge(node_app, node_svc))
 
