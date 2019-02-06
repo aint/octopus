@@ -41,6 +41,12 @@ def find_edges(graph: pydot.Dot, source: str) -> List[pydot.Edge]:
 
     return edges
 
+def find_node_by_name(name, graph):
+    for node in graph.get_nodes():
+        if node.get_name().strip('\"') == name:
+            return node
+    raise ValueError("Graph doesn't contain node with specified name", name)
+
 def node_names_list(graph):
     node_names = []
     for node in graph.get_nodes():

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from flask import Flask, request, send_file
-from graphviz import parse_graph, create_node, create_record_node, update_record_node, node_names_list, find_edges
+from graphviz import parse_graph, create_node, create_record_node, update_record_node, node_names_list, find_edges, find_node_by_name
 import pydot
 
 ELLIPSE_SHAPE = "ellipse"
@@ -13,12 +13,6 @@ app = Flask(__name__)
 @app.route('/')
 def hello():
     return 'Hello, World!'
-
-def find_node_by_name(name, graph):
-    for node in graph.get_nodes():
-        if node.get_name().strip('\"') == name:
-            return node
-    raise ValueError("Graph doesn't contain node with specified name", name)
 
 @app.route('/consume', methods=['POST'])
 def parse_request():
