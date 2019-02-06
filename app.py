@@ -69,8 +69,8 @@ def parse_request():
         if e.get_destination() not in deps:
             graph.del_edge(name, e.get_destination())
 
-    graph.write(path="graph.svg", format="svg")
     graph.write("graph.gv")
+    graph.write(path="graph.svg", format="svg")
 
     return send_file("graph.svg", mimetype='image/svg')
 
