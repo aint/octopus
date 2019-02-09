@@ -5,7 +5,7 @@ import pydot
 
 record_table = """<<table border='0' cellspacing='0'>
                     <tr><td port='port1' border='1' bgcolor='red'>{0}</td></tr>
-                    <tr><td port='port2' border='1' bgcolor='gray'>{1}</td></tr>
+                    <tr><td port='port2' border='1' bgcolor='maroon'>{1}</td></tr>
                     <tr><td port='port2' border='1' bgcolor='gray'>{2}</td></tr>
                 </table>>"""
 
