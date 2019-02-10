@@ -4,9 +4,9 @@ from typing import List
 import pydot
 
 record_table = """<<table border='0' cellspacing='0'>
-                    <tr><td port='port1' border='1' bgcolor='red'>{0}</td></tr>
-                    <tr><td port='port2' border='1' bgcolor='maroon'>{1}</td></tr>
-                    <tr><td port='port2' border='1' bgcolor='gray'>{2}</td></tr>
+                    <tr><td port='port1' border='1' bgcolor='{3}'>{0}</td></tr>
+                    <tr><td port='port2' border='1' bgcolor='{4}'>{1}</td></tr>
+                    <tr><td port='port2' border='1' bgcolor='{5}'>{2}</td></tr>
                 </table>>"""
 
 def parse_graph() -> pydot.Dot:
@@ -23,12 +23,14 @@ def create_node(name, shape, label = None) -> pydot.Node:
         return pydot.Node(name, shape = shape, label = label)
 
 def create_record_node(name, dep_type, metadata) -> pydot.Node:
-    label = record_table.format(name, dep_type, metadata)
+    c1, c2, c3 = record_colors(dep_type)
+    label = record_table.format(name, dep_type, metadata, c1, c3, c3)
 
     return pydot.Node(name, shape = "none", label = label)
 
 def update_record_node(node, dep_type, metadata) -> pydot.Node:
-    label = record_table.format(node.get_name(), dep_type, metadata)
+    c1, c2, c3 = record_colors(dep_type)
+    label = record_table.format(node.get_name(), dep_type, metadata, c1, c3, c3)
     node.set("label", label)
 
     return node
@@ -53,3 +55,11 @@ def node_names_list(graph):
         node_names.append(node.get_name().strip('\"'))
 
     return node_names
+
+def record_colors(type):
+    return {
+        "svc": ("#009f89", "#14877e", "#52c8be"),
+        "db": ("#6cc400", "#6a9721", "#acde56"),
+        "fn": ("#ff4300", "#b2593b", "#fe9777"),
+        "3rd party": ("#ffba00", "#b89321", "#fdda59")
+    }[type.lower()]
