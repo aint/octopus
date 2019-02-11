@@ -26,7 +26,7 @@ def create_record_node(name, dep_type, metadata) -> pydot.Node:
     c1, c2, c3 = record_colors(dep_type)
     label = record_table.format(name, dep_type, metadata, c1, c3, c3)
 
-    return pydot.Node(name, shape = "none", label = label)
+    return pydot.Node(name, shape = "none", label = label, URL = "/" + name)
 
 def update_record_node(node, dep_type, metadata) -> pydot.Node:
     c1, c2, c3 = record_colors(dep_type)
