@@ -14,6 +14,22 @@ app = Flask(__name__)
 def hello():
     return 'Hello, World!'
 
+@app.route('/<name>')
+def get_node_details(name):
+    graph = parse_graph()
+    node = find_node_by_name(name, graph)
+    nodeGraph = pydot.Dot()
+    nodeGraph.add_node(node)
+
+    for e in find_edges(graph, name):
+        dest_node = find_node_by_name(e.get_destination(), graph)
+        nodeGraph.add_node(dest_node)
+        nodeGraph.add_edge(pydot.Edge(node.get_name(), e.get_destination()))
+
+    nodeGraph.write(path=f"{name}.svg", format="svg")
+
+    return send_file(f"{name}.svg", mimetype='image/svg')
+
 @app.route('/consume', methods=['POST'])
 def parse_request():
     json = request.get_json()
