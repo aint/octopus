@@ -28,7 +28,7 @@ def get_node_details(name):
 
     nodeGraph.write(path=f"{name}.svg", format="svg")
 
-    return send_file(f"{name}.svg", mimetype='image/svg')
+    return send_file(f"{name}.svg", mimetype='image/svg+xml')
 
 @app.route('/consume', methods=['POST'])
 def parse_request():
@@ -88,7 +88,7 @@ def parse_request():
     graph.write("graph.gv")
     graph.write(path="graph.svg", format="svg")
 
-    return send_file("graph.svg", mimetype='image/svg')
+    return send_file("graph.svg", mimetype='image/svg+xml')
 
 def node_shape(service_type):
     return {
