@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import io, os
-from flask import Flask, request, send_file
+from flask import Flask, request, send_file, render_template, Markup
 from graphviz import parse_graph, create_node, create_record_node, update_record_node, node_names_list, find_edges, find_node_by_name
 import pydot
 
@@ -29,13 +29,12 @@ def get_node_details(name):
 
     nodeGraph.write(path=f"{name}.svg", format="svg")
 
-    with open(f"{name}.svg", "rb") as imageFile:
-        f = imageFile.read()
-        b = bytearray(f)
+    with open(f"{name}.svg", "r") as imageFile:
+        f = imageFile.read().replace('\n', '')
 
     os.remove(f"{name}.svg")
 
-    return send_file(io.BytesIO(b), mimetype='image/svg+xml')
+    return render_template('service.html', title=name, desc="desc", img=Markup(f))
 
 @app.route('/consume', methods=['POST'])
 def parse_request():
