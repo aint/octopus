@@ -12,8 +12,10 @@ OCTAGON_SHAPE = "octagon"
 app = Flask(__name__)
 
 @app.route('/')
-def hello():
-    return 'Hello, World!'
+def index():
+    graph = parse_graph()
+    graph.write(path="graph.svg", format="svg")
+    return send_file("graph.svg", mimetype='image/svg+xml')
 
 @app.route('/<name>')
 def get_node_details(name):
