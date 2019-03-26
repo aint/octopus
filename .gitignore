@@ -20,3 +20,7 @@ __pycache__/
 .vscode/
 tsconfig.json
 jsconfig.json
+
+### Other ###
+*.svg
+*.gv
