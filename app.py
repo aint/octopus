@@ -5,10 +5,6 @@ from flask import Flask, request, send_file, render_template, Markup
 from graphviz import parse_graph, create_node, create_record_node, update_record_node, node_names_list, find_edges, find_node_by_name
 import pydot
 
-ELLIPSE_SHAPE = "ellipse"
-BOX_SHAPE = "box"
-OCTAGON_SHAPE = "octagon"
-
 app = Flask(__name__)
 
 @app.route('/')
@@ -97,14 +93,6 @@ def parse_request():
     graph.write(path="graph.svg", format="svg")
 
     return send_file("graph.svg", mimetype='image/svg+xml')
-
-def node_shape(service_type):
-    return {
-        "services": ELLIPSE_SHAPE,
-        "databases": BOX_SHAPE,
-        "lambdas": OCTAGON_SHAPE,
-    }[service_type.lower()]
-
 
 def dependency_type(type):
     return {
