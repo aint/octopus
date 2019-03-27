@@ -34,7 +34,7 @@ def get_node_details(name):
 
     return render_template('service.html', title=name, desc="desc", img=Markup(f))
 
-@app.route('/consume', methods=['POST'])
+@app.route('/', methods=['POST'])
 def parse_request():
     json = request.get_json()
     name = json["serviceName"]
