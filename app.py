@@ -81,7 +81,7 @@ def parse_request():
 
             if svc not in edges:
                 dep_type = dependency_type(dep)
-                node_svc = create_record_node(svc, dep_type, "N/D")
+                node_svc = create_record_node(svc, dep_type, "" if dep_type == "db" else "N/D")
                 graph.add_node(node_svc)
                 graph.add_edge(pydot.Edge(node_app, node_svc))
 
