@@ -40,6 +40,7 @@ def parse_request():
     name = json["serviceName"]
     event_type = json["eventType"]
     metadata = json["serviceMetadata"]
+    service_type = json["serviceType"]
     dependencies = json["dependencies"]
 
     graph = parse_graph()
@@ -61,11 +62,11 @@ def parse_request():
 
 
     if name not in node_names:
-        node_app = create_record_node(name, "svc", metadata)
+        node_app = create_record_node(name, service_type, metadata)
         graph.add_node(node_app)
     else:
         node = find_node_by_name(name, graph)
-        node_app = update_record_node(node, "svc", metadata)
+        node_app = update_record_node(node, service_type, metadata)
 
     record_enabled = True
 
