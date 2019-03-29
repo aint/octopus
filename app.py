@@ -5,13 +5,15 @@ from flask import Flask, request, send_file, render_template, Markup
 from graphviz import parse_graph, create_node, create_record_node, update_record_node, node_names_list, find_edges, find_node_by_name
 import pydot
 
+SVG_MIME_TYPE = 'image/svg+xml'
+
 app = Flask(__name__)
 
 @app.route('/')
 def index():
     graph = parse_graph()
     graph.write(path="graph.svg", format="svg")
-    return send_file("graph.svg", mimetype='image/svg+xml')
+    return send_file("graph.svg", mimetype=SVG_MIME_TYPE)
 
 @app.route('/<name>')
 def get_node_details(name):
@@ -58,7 +60,7 @@ def parse_request():
         graph.write(path="graph.svg", format="svg")
         graph.write("graph.gv")
 
-        return send_file("graph.svg", mimetype='image/svg')
+        return send_file("graph.svg", mimetype=SVG_MIME_TYPE)
 
 
     if name not in node_names:
@@ -93,7 +95,7 @@ def parse_request():
     graph.write("graph.gv")
     graph.write(path="graph.svg", format="svg")
 
-    return send_file("graph.svg", mimetype='image/svg+xml')
+    return send_file("graph.svg", mimetype=SVG_MIME_TYPE)
 
 def dependency_type(type):
     return {
