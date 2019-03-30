@@ -17,6 +17,7 @@ def index():
 
 @app.route('/<name>')
 def get_node_details(name):
+    name = name.lower()
     graph = parse_graph()
     node = find_node_by_name(name, graph)
     nodeGraph = pydot.Dot()
