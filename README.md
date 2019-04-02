@@ -12,6 +12,7 @@
     <a href="https://github.com/aint"><img src="https://img.shields.io/badge/ask%20me-anything-1abc9c.svg"></a>
     <a href="http://flask.pocoo.org"><img src="https://img.shields.io/badge/made%20with-Python/Flask-1f425f.svg"></a>
     <a href="https://github.com/aint/octopus/blob/master/LICENSE"><img src="https://img.shields.io/github/license/aint/octopus.svg"></a>
+    <a href="https://hub.docker.com/r/aint/octopus"><img src="https://img.shields.io/docker/pulls/aint/octopus.svg"></a>
 
 </p>
 
