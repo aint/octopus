@@ -32,9 +32,11 @@ The microservice architecture has a lot of advantages but there are a lot disadv
 # Features
 ![](https://i.imgur.com/xeHAstb.png)
 
-# Install
-
 # Quick Start
+```docker
+docker pull aint/octopus:latest
+docker run -it -p 5000:5000 aint/octopus:latest
+```
 
 # Contributing
 
