@@ -2,6 +2,7 @@
 
 from typing import List
 import pydot
+import os
 
 record_table = """<<table border='0' cellspacing='0'>
                     <tr><td port='port1' border='1' bgcolor='{3}'>{0}</td></tr>
@@ -10,6 +11,9 @@ record_table = """<<table border='0' cellspacing='0'>
                 </table>>"""
 
 def parse_graph() -> pydot.Dot:
+    if not os.path.exists("graph.gv"):
+        pydot.Dot(graph_type='digraph').write("graph.gv")
+
     graphList = pydot.graph_from_dot_file("graph.gv", encoding = 'utf-8')
     print(type(graphList))
     graph = graphList[0]
