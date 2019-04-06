@@ -50,12 +50,12 @@ def parse_request():
     node_names = node_names_list(graph)
 
     if event_type == "DESTROY":
-        print("DESTROY")
+        app.logger.info('DESTROY event')
         if name in node_names:
             for e in graph.get_edges():
                 if e.get_source() == name or e.get_destination() == name:
                     r = graph.del_edge(e.get_source(), e.get_destination())
-                    print("DESTROY " + name + " :" + str(r))
+                    app.logger.info('DESTROY %s : %s', name, str(r))
             graph.del_node(name)
 
         graph.write(path="graph.svg", format="svg")
@@ -80,7 +80,7 @@ def parse_request():
     deps = []
     for dep in dependencies:
         for svc in dependencies[dep]:
-            print("svc: " + svc)
+            app.logger.info('svc: %s', svc)
             deps.append(svc)
 
             if svc not in edges:
