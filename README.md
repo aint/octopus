@@ -38,7 +38,31 @@ docker pull aint/octopus:latest
 docker run -it -p 5000:5000 aint/octopus:latest
 ```
 
-Octopus server should now be running at http://localhost:5000
+Octopus server should now be running at ![](http://localhost:5000)
+
+Send some POST request with curl
+```
+curl -X POST \
+  http://localhost:5000/ \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "eventType": "CREATE",
+    "serviceName": "service-1",
+    "serviceType": "svc",
+    "serviceMetadata": "Java 8, Spring 5.0",
+    "dependencies": {
+        "SERVICES": [
+            "service-2", "service-3",
+        ],
+        "DATABASES": [ "MySQL" ],
+        "LAMBDAS": [],
+        "THIRD_PARTY": []
+    }
+}'
+```
+
+Check out ![](http://localhost:5000) to see a result.
+
 
 # Contributing
 
