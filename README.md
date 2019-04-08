@@ -22,7 +22,7 @@
 
 # Why
 
-The microservice architecture has a lot of advantages but there are a lot disadvantages too. One of the main problem is that it can easily get out of control because of the quantity of the moving pieces.
+The microservice architecture has a lot of advantages but there are a lot disadvantages too. One of the main problem is that it can easily get out of control because of the quantity of the moving pieces. Especially if you just mindlessly jumped into the microservices hype.
 
 **Octopus** aims to solve some of that issue by providing an overall dependency graph between microservices.
 
@@ -37,6 +37,8 @@ The microservice architecture has a lot of advantages but there are a lot disadv
 docker pull aint/octopus:latest
 docker run -it -p 5000:5000 aint/octopus:latest
 ```
+
+Octopus server should now be running at http://localhost:5000
 
 # Contributing
 
