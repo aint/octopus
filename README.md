@@ -38,7 +38,7 @@ docker pull aint/octopus:latest
 docker run -it -p 5000:5000 aint/octopus:latest
 ```
 
-Octopus server should now be running at ![](http://localhost:5000)
+Octopus server should now be running at [http://localhost:5000](http://localhost:5000)
 
 Send some POST request with curl
 ```
@@ -61,7 +61,7 @@ curl -X POST \
 }'
 ```
 
-Check out ![](http://localhost:5000) to see a result.
+Check out [http://localhost:5000](http://localhost:5000) to see a result.
 
 
 # Contributing
