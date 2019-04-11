@@ -66,3 +66,22 @@ def record_colors(type):
         "fn": ("#ff4300", "#b2593b", "#fe9777"),
         "3rd party": ("#ffba00", "#b89321", "#fdda59")
     }[type.lower()]
+
+class Graphviz:
+    def __init__(self):
+        if not os.path.exists("graph.gv"):
+            pydot.Dot(graph_type='digraph').write("graph.gv")
+
+        graphList = pydot.graph_from_dot_file("graph.gv", encoding = 'utf-8')
+        graph: pydot.Dot = graphList[0]
+        graph.set_strict(True) #TODO make it configurable
+
+        self.graph = graph
+
+    def find_edges(self, source: str) -> List[pydot.Edge]:
+        edges = []
+        for e in self.graph.get_edges():
+            if e.get_source() == source:
+                edges.append(e)
+
+        return edges
