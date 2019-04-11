@@ -24,3 +24,4 @@ jsconfig.json
 ### Other ###
 *.svg
 *.gv
+.DS_Store
