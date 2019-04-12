@@ -85,3 +85,16 @@ class Graphviz:
                 edges.append(e)
 
         return edges
+
+    def node_names_list(self) -> List[str]:
+        node_names = []
+        for node in self.graph.get_nodes():
+            node_names.append(node.get_name().strip('\"'))
+
+        return node_names
+
+    def find_node_by_name(self, name):
+        for node in self.graph.get_nodes():
+            if node.get_name().strip('\"') == name:
+                return node
+        raise ValueError("Graph doesn't contain node with specified name", name)
