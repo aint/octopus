@@ -98,3 +98,9 @@ class Graphviz:
             if node.get_name().strip('\"') == name:
                 return node
         raise ValueError("Graph doesn't contain node with specified name", name)
+
+    def add_node(self, node_svc):
+        self.graph.add_node(node_svc)
+
+    def del_node(self, name):
+        self.graph.del_node(name)
