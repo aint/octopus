@@ -104,3 +104,9 @@ class Graphviz:
 
     def del_node(self, name):
         self.graph.del_node(name)
+
+    def add_edge(self, node_app, node_svc):
+        self.graph.add_edge(pydot.Edge(node_app, node_svc))
+
+    def del_edge(self, src, dst):
+        self.graph.del_edge(src, dst)
