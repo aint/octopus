@@ -116,3 +116,8 @@ class Graphviz:
             if e.get_source() == name or e.get_destination() == name:
                 r = self.graph.del_edge(e.get_source(), e.get_destination())
                 print('Deleting %s : %s', name, str(r))
+
+    def write(self, format):
+        graph_path = "graph." + format
+        self.graph.write(path=graph_path, format=format)
+        return graph_path
