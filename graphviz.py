@@ -110,3 +110,9 @@ class Graphviz:
 
     def del_edge(self, src, dst):
         self.graph.del_edge(src, dst)
+
+    def del_edges_by_name(self, name):
+        for e in self.graph.get_edges():
+            if e.get_source() == name or e.get_destination() == name:
+                r = self.graph.del_edge(e.get_source(), e.get_destination())
+                print('Deleting %s : %s', name, str(r))
