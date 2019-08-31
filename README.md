@@ -4,7 +4,7 @@
 <h2 align="center">Microservice Architecture Visualization Tool </h3>
 
 <p align="center">
-    <a href="https://github.com/aint/octopus/graphs/commit-activity"><img src="https://img.shields.io/maintenance/yes/2018.svg"></a>
+    <a href="https://github.com/aint/octopus/graphs/commit-activity"><img src="https://img.shields.io/maintenance/yes/2019.svg"></a>
     <a href="https://travis-ci.org/aint/octopus"><img src="https://travis-ci.org/aint/octopus.svg?branch=master"></a>
 	<a href="https://libraries.io/aint/octopus"><img src="https://img.shields.io/librariesio/github/aint/octopus.svg"></a>
 	<br>
