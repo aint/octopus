@@ -2,7 +2,7 @@
 
 import io, os
 from flask import Flask, request, send_file, render_template, Markup
-from graphviz import parse_graph, create_node, create_record_node, update_record_node, node_names_list, find_edges, find_node_by_name
+from graphviz import create_node, create_record_node, update_record_node, Graphviz
 import pydot
 
 SVG_MIME_TYPE = 'image/svg+xml'
@@ -11,20 +11,20 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    graph = parse_graph()
-    graph.write(path="graph.svg", format="svg")
-    return send_file("graph.svg", mimetype=SVG_MIME_TYPE)
+    graph = Graphviz()
+    file = graph.write("svg")
+    return send_file(file, mimetype=SVG_MIME_TYPE)
 
 @app.route('/<name>')
 def get_node_details(name):
     name = name.lower()
-    graph = parse_graph()
-    node = find_node_by_name(name, graph)
+    graph = Graphviz()
+    node = graph.find_node_by_name(name)
     nodeGraph = pydot.Dot()
     nodeGraph.add_node(node)
 
-    for e in find_edges(graph, name):
-        dest_node = find_node_by_name(e.get_destination(), graph)
+    for e in graph.find_edges(name):
+        dest_node = graph.find_node_by_name(e.get_destination())
         nodeGraph.add_node(dest_node)
         nodeGraph.add_edge(pydot.Edge(node.get_name(), e.get_destination()))
 
@@ -46,35 +46,32 @@ def parse_request():
     service_type = json["serviceType"]
     dependencies = json["dependencies"]
 
-    graph = parse_graph()
-    node_names = node_names_list(graph)
+    graph = Graphviz()
+    node_names = graph.node_names_list()
 
     if event_type == "DESTROY":
         app.logger.info('DESTROY event')
         if name in node_names:
-            for e in graph.get_edges():
-                if e.get_source() == name or e.get_destination() == name:
-                    r = graph.del_edge(e.get_source(), e.get_destination())
-                    app.logger.info('DESTROY %s : %s', name, str(r))
+            graph.del_edges_by_name(name)
             graph.del_node(name)
 
-        graph.write(path="graph.svg", format="svg")
-        graph.write("graph.gv")
+        graph.write("gv")
+        file = graph.write("svg")
 
-        return send_file("graph.svg", mimetype=SVG_MIME_TYPE)
+        return send_file(file, mimetype=SVG_MIME_TYPE)
 
 
     if name not in node_names:
         node_app = create_record_node(name, service_type, metadata)
         graph.add_node(node_app)
     else:
-        node = find_node_by_name(name, graph)
+        node = graph.find_node_by_name(name)
         node_app = update_record_node(node, service_type, metadata)
 
     record_enabled = True
 
     edges = []
-    for e in find_edges(graph, name):
+    for e in graph.find_edges(name):
         edges.append(e.get_destination())
 
     deps = []
@@ -87,16 +84,16 @@ def parse_request():
                 dep_type = dependency_type(dep)
                 node_svc = create_record_node(svc, dep_type, "" if dep_type == "db" or dep_type == "3rd party" else "N/D")
                 graph.add_node(node_svc)
-                graph.add_edge(pydot.Edge(node_app, node_svc))
+                graph.add_edge(node_app, node_svc)
 
-    for e in find_edges(graph, name):
+    for e in graph.find_edges(name):
         if e.get_destination() not in deps:
             graph.del_edge(name, e.get_destination())
 
-    graph.write("graph.gv")
-    graph.write(path="graph.svg", format="svg")
+    graph.write("gv") 
+    file = graph.write("svg")
 
-    return send_file("graph.svg", mimetype=SVG_MIME_TYPE)
+    return send_file(file, mimetype=SVG_MIME_TYPE)
 
 def dependency_type(type):
     return {
