@@ -10,14 +10,19 @@ record_table = """<<table border='0' cellspacing='0'>
                     <tr><td port='port2' border='1' bgcolor='{5}'>{2}</td></tr>
                 </table>>"""
 
-def parse_graph() -> pydot.Dot:
-    if not os.path.exists("graph.gv"):
-        pydot.Dot(graph_type='digraph').write("graph.gv")
+# def render(filename = None):
+#     graph.write("graph.gv")
+#     graph.write(path="graph.svg", format="svg")
+#     return
 
-    graphList = pydot.graph_from_dot_file("graph.gv", encoding = 'utf-8')
-    graph = graphList[0]
-    graph.set_strict(True) #TODO make it configurable
-    return graph
+# def parse_graph() -> pydot.Dot:
+#     if not os.path.exists("graph.gv"):
+#         pydot.Dot(graph_type='digraph').write("graph.gv")
+
+#     graphList = pydot.graph_from_dot_file("graph.gv", encoding = 'utf-8')
+#     graph = graphList[0]
+#     graph.set_strict(True) #TODO make it configurable
+#     return graph
 
 def create_node(name, shape, label = None) -> pydot.Node:
     if label == None:
@@ -38,26 +43,26 @@ def update_record_node(node, dep_type, metadata) -> pydot.Node:
 
     return node
 
-def find_edges(graph: pydot.Dot, source: str) -> List[pydot.Edge]:
-    edges = []
-    for e in graph.get_edges():
-        if e.get_source() == source:
-            edges.append(e)
+# def find_edges(graph: pydot.Dot, source: str) -> List[pydot.Edge]:
+#     edges = []
+#     for e in graph.get_edges():
+#         if e.get_source() == source:
+#             edges.append(e)
 
-    return edges
+#     return edges
 
-def find_node_by_name(name, graph):
-    for node in graph.get_nodes():
-        if node.get_name().strip('\"') == name:
-            return node
-    raise ValueError("Graph doesn't contain node with specified name", name)
+# def find_node_by_name(name, graph):
+#     for node in graph.get_nodes():
+#         if node.get_name().strip('\"') == name:
+#             return node
+#     raise ValueError("Graph doesn't contain node with specified name", name)
 
-def node_names_list(graph):
-    node_names = []
-    for node in graph.get_nodes():
-        node_names.append(node.get_name().strip('\"'))
+# def node_names_list(graph):
+#     node_names = []
+#     for node in graph.get_nodes():
+#         node_names.append(node.get_name().strip('\"'))
 
-    return node_names
+#     return node_names
 
 def record_colors(type):
     return {

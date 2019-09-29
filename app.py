@@ -105,3 +105,19 @@ def dependency_type(type):
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
+
+def strip_quote(s: str):
+    return s.strip('\"')
+
+
+# - color configurable
+# - event type
+# - makefile
+# - pipfile
+# - readme
+# - docker
+# - saving GV source file
+
+# class abstraction over Graph
+# endpoint for deps of the specified service
+# logging

@@ -1,0 +1,17 @@
+POST http://localhost:5000/ HTTP/1.1
+content-type: application/json
+
+{
+    "eventType": "CREATE",
+    "serviceName": "service-1",
+    "serviceType": "svc",
+    "serviceMetadata": "Java 8, Spring 5.0",
+    "dependencies": {
+        "SERVICES": [
+            "service-2", "service-3"
+        ],
+        "DATABASES": [ "MySQL" ],
+        "LAMBDAS": [],
+        "THIRD_PARTY": []
+    }
+}

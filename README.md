@@ -16,6 +16,12 @@
 
 </p>
 
+
+// align badges
+// use github for storing logo
+// add some screenshots
+// add meme pic
+
 ---
 
 **Octopus** is an open-source microservice architecture tool for visualizing dependency graph. It's simple and easy to use.
@@ -29,7 +35,12 @@ The microservice architecture has a lot of advantages but there are a lot disadv
 - you need it to paint the big picture. Don’t underestimate the value of seeing the big picture because you definitely need it even if you are not doing the architecture on daily basis
 - you also need this to do some impact analysis
 
+It difers from OpenTracing.
+
 # Features
+
+Supports services, lambdas
+
 ![](https://i.imgur.com/xeHAstb.png)
 
 # Quick Start
@@ -63,6 +74,12 @@ curl -X POST \
 
 Check out [http://localhost:5000](http://localhost:5000) to see a result.
 
+# Supports
+Java Spring Boot
+Golang (WIP)
+
+duplication in graph
+remove orhans!!!!
 
 # Contributing
 
